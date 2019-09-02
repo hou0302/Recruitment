@@ -48,16 +48,6 @@ body{
     top: 7px;
     text-align: center;
 }
-#register:hover{
-    background-color: #297AFF;
-    border: #297AFF;
-    transition: 0.5s;
-}
-#login:hover{
-    background-color: transparent;
-    border: solid 1px #ffffff;
-    transition: 1ms;
-}
 #YD_logo{
     max-height: 30px;
     max-width: 45px;

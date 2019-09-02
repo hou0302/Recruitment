@@ -174,11 +174,12 @@ def appoint_interview_time(request):
 def creatimg(request, num):
     if num == '1':
         c = major_academy()
-        c.render(path='/home/Recruitment_System/apps/data/templates/one.html')
+        c.render(path='apps/data/templates/one.html')
+        # return render(request,'one.html')
         return render(request,'one.html')
     elif num == '2':
         c = gender_direction()
-        c.render(path='/home/Recruitment_System/apps/data/templates/two.html')
+        c.render(path='apps/data/templates/two.html')
         return render(request,'two.html')
     else:
         pass
