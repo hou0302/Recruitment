@@ -62,72 +62,81 @@ function getCookie(name) {
 function corrected_id() {
     var uid = document.getElementById("uid");
     var reg = /2019\d{6}/;
-    var error = document.getElementById("error");
-    if (reg.exec(uid.value) === null){
+    var M = {};
+    if (reg.exec(uid.value) === null) {
         uid.style.borderBottom = "1px solid red";
-        error.hidden = false;
-        if (error.innerText.search(' 学号格式错误 ') === -1){
-            var msg = document.createTextNode(' 学号格式错误 ');
-            error.appendChild(msg);
+        if (M.dialog){
+            return M.dialog.show();
         }
-    } else if (reg.exec(uid.value)[0] === uid.value) {
-        uid.style.borderBottom = null;
-        error.hidden = true;
-        error.innerText = null;
+        M.dialog = jqueryAlert({
+            'content' : '学号格式错啦！'
+        })
     }
+    else {uid.style.borderBottom = null}
 }
 function corrected_pwd() {
     var pwd = document.getElementById("pwd");
-    console.log(pwd.value);
     var reg = /.{6}/;
-    var error = document.getElementById("error");
     var is_match = reg.exec(pwd.value);
+    var M = {};
     if (is_match === null){
         pwd.style.borderBottom = "1px solid red";
-        error.hidden = false;
-        if (error.innerText.search(' 密码长度不得低于六位 ') === -1){
-            var msg = document.createTextNode(' 密码长度不得低于六位 ');
-            error.appendChild(msg);
+        if (M.dialog){
+            return M.dialog.show();
         }
-    } else if (is_match[0] === pwd.value) {
-        pwd.style.borderBottom = null;
-        error.hidden = true;
-        error.innerText = null;
+        M.dialog = jqueryAlert({
+            'content' : '密码长度不得低于六位!'
+        })
     }
+    else {pwd.style.borderBottom = null}
 }
 function corrected_phone() {
     var phone = document.getElementById("phone");
-    var reg = /^1((3[0-9])|(4[579])|(5[469])|(66)|(7[35678])|(8[0-9])|(9[89]))\d{8}$/;
-    var error = document.getElementById("error");
+    var reg = /^1((3[0-9])|(4[579])|(5[0-9])|(66)|(7[35678])|(8[0-9])|(9[89]))\d{8}$/;
     var is_match = reg.exec(phone.value);
-    if (is_match === null){
+    var M = {};
+    if (is_match === null) {
         phone.style.borderBottom = "1px solid red";
-        error.hidden = false;
-        if (error.innerText.search(' 手机号格式错误 ') === -1){
-            var msg = document.createTextNode(' 手机号格式错误 ');
-            error.appendChild(msg);
+        if (M.dialog) {
+            return M.dialog.show();
         }
-    } else if (is_match[0] === phone.value) {
-        phone.style.borderBottom = null;
-        error.hidden = true;
-        error.innerText = null;
+        M.dialog = jqueryAlert({
+            'content': '手机号格式不正确!'
+        })
     }
+    else {phone.style.borderBottom = null}
 }
 function corrected_email() {
     var email = document.getElementById("email");
     var reg = /@./;
-    var error = document.getElementById("error");
     var is_match = reg.exec(email.value);
-    if (is_match === null){
+    var M = {};
+    if (is_match === null) {
         email.style.borderBottom = "1px solid red";
-        error.hidden = false;
-        if (error.innerText.search(' 邮箱格式错误 ') === -1){
-            var msg = document.createTextNode(' 邮箱格式错误 ');
-            error.appendChild(msg);
+        if (M.dialog) {
+            return M.dialog.show();
         }
-    } else if (is_match[0]) {
-        email.style.borderBottom = null;
-        error.hidden = true;
-        error.innerText = null;
+        M.dialog = jqueryAlert({
+            'content': '邮箱格式不正确!'
+        })
+    }
+    else {email.style.borderBottom = null}
+}
+function corrected_empty(obj_list) {
+    var hasempty = false;
+    for (var obj in obj_list){
+        var value = document.getElementById(obj_list[obj]).value;
+        if (value === '' || value === null){
+            hasempty = true;
+            break;
+        }
+    }
+    if (hasempty){
+        jqueryAlert({
+            'content' : '还有信息未填哦~'
+        });
+        return false
+    } else {
+        return true
     }
 }

@@ -3,9 +3,9 @@ var firstpagehtml = '<form action="">\n' +
         '            <input type="text" id="name" placeholder="请输入姓名" value="" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入姓名\'" name=""><br>\n' +
         '            <input type="number" id="uid" placeholder="请输入学号" value="" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入学号\'" name="" onchange="corrected_id()"><br>\n' +
         '            <input type="password" id="pwd" placeholder="请输入密码" value="" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入密码\'" name="" onchange="corrected_pwd()"><br>\n' +
-        '            <span id="gender_tip" class="tip">请选择性别</span>&nbsp;\n' +
-        '            <input type="radio" value="男" name="gender" hidden id="male" checked>\n' +
-        '            <label class="male_icon" for="male"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n' +
+        '            <span id="gender_tip" class="tip">请选择性别</span>\n' +
+        '            <input type="radio" value="男" name="gender" hidden id="male">\n' +
+        '            <label class="male_icon" for="male"></label>\n' +
         '            <input type="radio" id="female" value="女" name="gender" hidden>\n' +
         '            <label class="female_icon" for="female"></label>\n' +
         '            <br>\n' +
@@ -42,16 +42,17 @@ var thirdpagehtml = '<form action="">\n' +
 var forthpagehtml = '<form action="">\n' +
     '            <div>\n' +
     '                <input type="number" id="dormitory" placeholder="请输入宿舍" onfocus="this.placeholder=\'\'" onblur="this.placeholder=\'请输入宿舍\'" name="dormitory"><br>\n' +
+    '                <br>\n' +
     '            </div>\n' +
     '            <div class="main_footer">\n' +
     '                <input type="button" value="上&nbsp;&nbsp;一&nbsp;&nbsp;步" id="process1" onclick="ForthToThird()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n' +
-    '                <input type="button" value="提&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交" id="process" onclick="Form_Submit()"><br>\n' +
+    '                <input type="button" value="提&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交" onclick="Form_Submit()"><br>\n' +
     '                <img src="/static/img/第四页.svg" alt="" class="page">\n' +
     '            </div>\n' +
     '        </form>';
 function FirstToSecond() {
     //保存当前页面数据
-    var name = document.getElementById('name').value;
+    if (corrected_empty(['name', 'uid', 'pwd'])){var name = document.getElementById('name').value;
     var uid = document.getElementById('uid').value;
     var pwd = document.getElementById('pwd').value;
     var gender = getRadioValue('gender');
@@ -66,6 +67,7 @@ function FirstToSecond() {
     document.getElementById('phone').value = sessionStorage.getItem('phone');
     document.getElementById('email').value = sessionStorage.getItem('email');
     document.getElementById('code').value = sessionStorage.getItem('input_code');
+    }
 }
 function SecondToFirst() {
      //保存当前页面数据
@@ -87,7 +89,7 @@ function SecondToFirst() {
 }
 function SecondToThird() {
     //保存当前页面数据
-    var QQ = document.getElementById('QQ').value;
+    if (corrected_empty(['QQ', 'phone', 'email'])){var QQ = document.getElementById('QQ').value;
     var phone = document.getElementById('phone').value;
     var email = document.getElementById('email').value;
     var input_code = document.getElementById('code').value;
@@ -107,7 +109,7 @@ function SecondToThird() {
     if (sessionStorage.getItem('major')){
         setTimeout("document.getElementById('major').value = sessionStorage.getItem('major');", 100);
     }
-    document.getElementById('class').value = sessionStorage.getItem('class');
+    document.getElementById('class').value = sessionStorage.getItem('class');}
 }
 function ThirdToSecond() {
      //保存当前页面数据
@@ -128,7 +130,7 @@ function ThirdToSecond() {
 }
 function ThirdToForth() {
      //保存当前页面数据
-    var college = document.getElementById('college').value;
+    if (corrected_empty(['college', 'major', 'class'])){var college = document.getElementById('college').value;
     var major = document.getElementById('major').value;
     sessionStorage.setItem("college", college);
     sessionStorage.setItem("major", major);
@@ -146,7 +148,8 @@ function ThirdToForth() {
     if (sessionStorage.getItem('apartment')) {
         document.getElementById('apartment').value = sessionStorage.getItem('apartment');
     }
-    document.getElementById('dormitory').value = sessionStorage.getItem('dormitory');
+    document.getElementById('dormitory').value = sessionStorage.getItem('dormitory');}
+
 }
 function ForthToThird() {
     //保存当前页面数据
@@ -255,8 +258,13 @@ function send_code() {
                 sessionStorage.setItem('code', result);
             }
         });
+        jqueryAlert({
+            'content' : '邮箱验证码已发送！',
+            'animateType' : 'linear',
+            'closeTime' : 2000
+        });
         count_down(wait_time, code_button);
-        console.log('已发送！')
+        setTimeout('if (document.getElementById("code").value === "" || document.getElementById("code").value === null){jqueryAlert({"content":"若长时间未收到验证码记得查看一下垃圾箱哦","closeTime":3000})}', 30000);
     }
 }
 function count_down(wait_time, button) {

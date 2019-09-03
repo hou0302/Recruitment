@@ -10,7 +10,7 @@ body{
     width: 100%;
 }
 #main{
-    height: 467px;
+    min-height: 71vh;
     width: 100%;
     background-color: #FFFFFF;
     border-top-left-radius: 15px;
@@ -211,7 +211,7 @@ input:focus, .select_list:focus{
 }
 #gender_tip{
     position: relative;
-    left: 8px;
+    left: -2.5%;
     top: -13px;
 }
 .gender_icon{
@@ -236,15 +236,15 @@ input:focus, .select_list:focus{
 }
 #process{
     border-radius: 10px;
+    border: solid 1px #297AFF;
+    color: #297AFF;
+    background-color: #FFFFFF;
+}
+#process1{
+    border-radius: 10px;
     border: solid 1px #5A5A68;
     color: #5A5A68;
     background-color: #FFFFFF;
-}
-#process:hover{
-    border-radius: 10px;
-    border: solid 1px #297AFF;
-    color: #297AFF;
-    transition: 0.1s;
 }
 .male_icon{
     width: 40px;
@@ -252,7 +252,7 @@ input:focus, .select_list:focus{
     background-image: url("/static/img/male.svg");
     position: relative;
     z-index: 3;
-    right: -7%;
+    right: -3%;
     margin-top: 6.6%;
     display: inline-block;
 }
@@ -263,6 +263,7 @@ input:focus, .select_list:focus{
     position: relative;
     z-index: 3;
     top: 22.6%;
+    left: 6%;
     display: inline-block;
 }
 input[type=radio]:checked+.male_icon{
@@ -271,7 +272,7 @@ input[type=radio]:checked+.male_icon{
     background-image: url("/static/img/male_focus.svg");
     position: relative;
     z-index: 3;
-    right: -7%;
+    right: -3%;
     margin-top: 6.6%;
     display: inline-block;
 }
